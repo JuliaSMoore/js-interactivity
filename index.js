@@ -38,11 +38,22 @@ const form = document.querySelector('form')
 
 form.addEventListener(`submit`, addMovie)
 
+
+const revealMessage = () => {
+
+    message.removeAttribute(`class`, `hide`)
+
+    setTimeout(() => message.setAttribute(`class`, `hide`), 1000)
+
+}
+
 const deleteMovie = (event) => {
 
-    message.textContent = `Movie deleted!`
-
     event.target.parentNode.remove() 
+
+    message.textContent = `${event.target.previousSibling.textContent} deleted!`
+
+    revealMessage()
 }
 
 crossOffMovie = (event) => {
@@ -50,8 +61,10 @@ crossOffMovie = (event) => {
     event.target.classList.toggle(`checked`)
 
     if (event.target.classList.contains(`checked`)) {
-        message.textContent = `Movie watched!`
+        message.textContent = `${event.target.textContent} watched!`
     } else {
-        message.textContent = `Movie added back!`
+        message.textContent = `${event.target.textContent} added back!`
     }
+    revealMessage()
 }
+
